@@ -1,6 +1,6 @@
 import os
 
-path = "C:/Users/sofak/Downloads/apps"
+path = "/Users/sofak/Documents"
 
 for i in os.listdir(path):
     print(i)
