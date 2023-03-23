@@ -4,4 +4,5 @@ path = "/Users/sofak/Documents"
 
 for i in os.listdir(path):
     print(i)
+    print("Hello World")
     

@@ -1,7 +1,7 @@
 import os
 import requests
 from bs4 import BeautifulSoup
-from functions import download_img, normalized_number
+from functions import create_directory ,download_img, normalized_number
 import personnal_data
 
 # Type 2d or 3d
@@ -10,18 +10,13 @@ type = "3d"
 # Path where to download pics
 path = f"{personnal_data.path_data}/{type}/"
 
-# replace the URL with the web page you want to scrape
+# Collect data
 url = personnal_data.url_data
 new_directory = url.split("/")[-2]
 family_pic_name = "_".join(new_directory.split("-"))
 
 # Create directory
-try:
-    os.mkdir(path + new_directory)
-    print(f"{family_pic_name} directory created successfully!")
-except OSError as error:
-    print(f"Error creating directory: {error}")
-    print("Process with the existing directory")
+create_directory(path + new_directory, family_pic_name)
 
 response = requests.get(url)
 
