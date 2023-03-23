@@ -1,44 +1,27 @@
-import os
-import requests
-from bs4 import BeautifulSoup
-from functions import create_directory ,download_img, normalized_number
+from functions import data_setup, create_directory, request_process, generate_img_urls, ddl_process
 import personnal_data
 
 # Type 2d or 3d
 type = "3d"
 
+# path_data value if no personnal_data module
+path_data = None
+
 # Path where to download pics
 path = f"{personnal_data.path_data}/{type}/"
 
+# Take the url and check the page status
+url, soup = request_process()
+
 # Collect data
-url = personnal_data.url_data
-new_directory = url.split("/")[-2]
-family_pic_name = "_".join(new_directory.split("-"))
+new_directory, family_pic_name, pic_path = data_setup(url, path)
 
 # Create directory
-create_directory(path + new_directory, family_pic_name)
+create_directory(pic_path, family_pic_name)
 
-response = requests.get(url)
+# Find all furls for all targeted pics
+list_urls = generate_img_urls(soup)
 
-soup = BeautifulSoup(response.text, 'html.parser')
-
-# find all figure tags on the page
-figures = soup.find_all('figure')
-
-# ts of each figure tag
-n = 1
-for fig in figures:
-    #
-    target_url = [i.split('"')[1] \
-            #
-            for i in \
-            #
-            str(list(fig.find_all('a'))[0]).split(" ") \
-            #
-            if "href" in i][0]
-    print(target_url)
-    # Create the file name of the picture
-    filename = f"{path + new_directory}/{family_pic_name}_{normalized_number(n,3)}.jpg"
-    download_img(target_url, filename)
-    n += 1
+# Full process
+ddl_process(list_urls,pic_path,family_pic_name)
 
