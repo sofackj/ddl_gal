@@ -25,7 +25,6 @@ def request_process():
         try:
             response = requests.get(url)
             if response.status_code == 200:
-                print("Clean URL added !")
                 soup = BeautifulSoup(response.text, 'html.parser')
                 return url, soup
             else:
@@ -36,7 +35,6 @@ def request_process():
 # Get the URL
 def get_the_url():
     if take_clipboard():
-        print("Clean URL in the clipboard !")
         return take_clipboard()
     else:
         return request_process()
@@ -46,16 +44,17 @@ def data_setup(url, path):
     new_directory = url.split("/")[-2]
     family_pic_name = "_".join(new_directory.split("-"))
     pic_path = path + new_directory
-    return new_directory, family_pic_name, pic_path
+    return family_pic_name, pic_path
 
 # Create a directory
 def create_directory(directory_path, folder_name):
     try:
         os.mkdir(directory_path)
         print(f"{folder_name} directory created successfully!")
-    except OSError as error:
-        print(f"Error creating directory: {error}")
-        print("Process with the existing directory")  
+        return True
+    except OSError:
+        print("The directory already exists !")
+        return False
 
 #
 def generate_img_urls(soup_object):

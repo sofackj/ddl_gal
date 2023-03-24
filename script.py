@@ -1,9 +1,19 @@
 import time
 from progress.bar import IncrementalBar
 import pyperclip
+import os
+import personnal_data
+from functions import create_directory
 
-s = pyperclip.paste()
-print(s)
+path = f"{personnal_data.path_data}/hello"
+
+if create_directory(path, "hello"):
+    print("gj")
+else:
+    print('stop')
+
+# s = pyperclip.paste()
+# print(s)
 
 # mylist = [1,2,3,4,5,6,7,8]
 # a = time.time()
