@@ -3,14 +3,26 @@ from progress.bar import IncrementalBar
 import pyperclip
 import os
 import personnal_data
-from functions import create_directory
+from functions import create_directory, request_process, check_category
+import re
 
-path = f"{personnal_data.path_data}/hello"
+url, soup =  request_process()
 
-if create_directory(path, "hello"):
-    print("gj")
-else:
-    print('stop')
+category = check_category(soup)
+
+print(category)
+
+# if metas:
+#     print("3D")
+# else:
+#     print("2D")
+
+# path = f"{personnal_data.path_data}/hello"
+
+# if create_directory(path, "hello"):
+#     print("gj")
+# else:
+#     print('stop')
 
 # s = pyperclip.paste()
 # print(s)

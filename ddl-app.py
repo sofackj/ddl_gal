@@ -1,22 +1,26 @@
-from functions import data_setup, create_directory, get_the_url, generate_img_urls, ddl_process
+from functions import data_setup, create_directory, get_the_url, check_category,generate_img_urls, ddl_process
 import personnal_data
 import os
 
 # Type 2d or 3d
-type = "2d"
+# type = "2d"
 
 # path_data value if no personnal_data module
 path_data = None
 
 # Path where to download pics
-path = f"{personnal_data.path_data}/{type}/"
+path = f"{personnal_data.path_data}"
 
 def ddl_app(chosen_directory): 
     print()
     # Take the url and check the page status
     url, soup = get_the_url()
+    # Data finisher
+    type = check_category(soup, "2D", "3D")
+    final_path = f"{chosen_directory}/{type}/"
+    print((final_path))
     # Collect data
-    family_pic_name, pic_path = data_setup(url, chosen_directory)
+    family_pic_name, pic_path = data_setup(url, final_path)
     # Create directory
     if create_directory(pic_path, family_pic_name):
         # Find all furls for all targeted pics

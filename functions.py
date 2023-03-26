@@ -32,6 +32,27 @@ def request_process():
         except:
             continue
 
+def yes_or_no_input():
+    ask_question = input("Use the default category ? ")
+    if ask_question == "" or ask_question[0].lower() != "n":
+        return False
+    else:
+        return True
+
+# Check category
+def check_category(soup, default_value, chosen_value):
+    tags = soup.find_all("span",{"class":"post-category"})
+    for element in tags:
+        for content in element.contents:
+            if "3D" in str(content):
+                return chosen_value
+            else:
+                continue
+    if yes_or_no_input():
+        return chosen_value
+    else:
+        return default_value
+
 # Get the URL
 def get_the_url():
     if take_clipboard():
