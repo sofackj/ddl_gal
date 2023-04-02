@@ -6,11 +6,24 @@ import personnal_data
 from functions import create_directory, request_process, check_category
 import re
 
-url, soup =  request_process()
+path = f"{personnal_data.path_data}"
 
-category = check_category(soup)
+my_list = []
 
-print(category)
+for i in os.listdir(path):
+    if "txt" in i:
+        file = open(f"{path}/{i}", "r")
+        for line in file:
+            my_list.append(line.rstrip())
+        file.close()
+
+print(my_list)
+
+# url, soup =  request_process()
+
+# category = check_category(soup)
+
+# print(category)
 
 # if metas:
 #     print("3D")

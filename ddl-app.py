@@ -2,11 +2,9 @@ from functions import data_setup, create_directory, get_the_url, check_category,
 import personnal_data
 import os
 
-# Type 2d or 3d
-# type = "2d"
-
 # path_data value if no personnal_data module
 path_data = None
+
 
 # Path where to download pics
 path = f"{personnal_data.path_data}"

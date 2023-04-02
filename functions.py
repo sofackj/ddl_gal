@@ -32,6 +32,26 @@ def request_process():
         except:
             continue
 
+#
+def text_file_request(url):
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.text, 'html.parser')
+            return soup
+        else:
+            return False
+    except:
+        return False
+
+# Get the URL
+def get_the_url():
+    if take_clipboard():
+        return take_clipboard()
+    else:
+        return request_process()
+
+#
 def yes_or_no_input():
     ask_question = input("Use the default category ? ")
     if ask_question == "" or ask_question[0].lower() != "n":
@@ -44,7 +64,7 @@ def check_category(soup, default_value, chosen_value):
     tags = soup.find_all("span",{"class":"post-category"})
     for element in tags:
         for content in element.contents:
-            if "3D" in str(content):
+            if chosen_value in str(content):
                 return chosen_value
             else:
                 continue
@@ -52,13 +72,6 @@ def check_category(soup, default_value, chosen_value):
         return chosen_value
     else:
         return default_value
-
-# Get the URL
-def get_the_url():
-    if take_clipboard():
-        return take_clipboard()
-    else:
-        return request_process()
 
 # Prepare data
 def data_setup(url, path):
@@ -74,7 +87,7 @@ def create_directory(directory_path, folder_name):
         print(f"{folder_name} directory created successfully!")
         return True
     except OSError:
-        print("The directory already exists !")
+        print(f"The directory {folder_name} already exists !")
         return False
 
 #
