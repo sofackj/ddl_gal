@@ -13,12 +13,13 @@ def check_txt_file(chosen_path):
     # Set up the loop process
     while n != 0:
         n = 0
-        for type in os.listdir(chosen_path):
-            if "txt" in type:
-                file = open(f"{chosen_path}/{type}", "r")
-                for line in file:
-                    n += ddl_app(line.rstrip(), type, chosen_path)
-                file.close()
+        for file in os.listdir(chosen_path):
+            if ".txt" in file:
+                txt_file = open(f"{chosen_path}/{file}", "r")
+                for line in txt_file:
+                    category = file.split(".")[0]
+                    n += ddl_app(line.rstrip(), category, chosen_path)
+                txt_file.close()
 
 if __name__ == "__main__":
     # Start the process
