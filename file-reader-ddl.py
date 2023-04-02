@@ -29,23 +29,30 @@ def ddl_app(url, type, chosen_directory):
             print()
             # Check the numbers of downloaded pics
             print(f"Pics downloaded : {len(os.listdir(pic_path))}")
+            print()
+            return 1
         else:
+            # If the directory already exists return 0 value for thr parent loop
             print("Process terminated !")
+            print()
+            return 0
     else:
+        # If the directory already exists return 0 value for thr parent loop
         print(f"The URL doesn't fulfill the requirement for the process !\nURL : {url}")
-    print()
+        print()
+        return 0
 
-my_list = []
-
-for i in os.listdir(path):
-    if "txt" in i:
-        file = open(f"{path}/{i}", "r")
-        for line in file:
-            my_list.append(line.rstrip())
-        file.close()
-
-for url in my_list:
-    ddl_app(url, "3d", path)
+# Set to 0 for entering the loop
+n = 1
+# Set up the loop process
+while n != 0:
+    n = 0
+    for type in os.listdir(path):
+        if "txt" in type:
+            file = open(f"{path}/{type}", "r")
+            for line in file:
+                n += ddl_app(line.rstrip(), type, path)
+            file.close()
 
 if __name__ == "__main__":
     pass
