@@ -13,12 +13,9 @@ path_base = f"{personnal_data.path_data}"
 path_lecture = f"{personnal_data.path_data}/lecture"
 path = f"{personnal_data.path_data_spe}"
 
-my_list = []
+folder_list = [item for item in os.listdir(path)]
 
-for i in os.listdir(path):
-    my_list.append(i)
-
-old_list, lecture_list = random_items_from_list(0, my_list)
+old_list, lecture_list = random_items_from_list(0, folder_list)
 
 create_directory(path_lecture, "lecture")
 
