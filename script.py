@@ -13,7 +13,7 @@ from PIL import Image
 
 path_base = f"{personnal_data.path_downloads}/test"
 path_lecture = f"{personnal_data.path_data}/lecture"
-path = f"{personnal_data.path_data}/3d/Daddy-Crazy-Desire-3"
+path = f"{personnal_data.path_data}"
 
 
 import aspose.words as aw
@@ -24,7 +24,7 @@ builder = aw.DocumentBuilder(doc)
 n = 1
 for i in os.listdir(path_base):
     shape = builder.insert_image(f"{path_base}/{i}")
-    shape.image_data.save(f"{path}/Daddy-Crazy-Desire-3-{n}.jpg")
+    shape.image_data.save(f"{path}/{n}.jpg")
     n += 1 
 
 # Image.open("sample1.jpg").save("sample1.png")
