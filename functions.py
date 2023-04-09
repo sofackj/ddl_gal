@@ -9,7 +9,10 @@ import pyperclip
 def take_clipboard():
     url = pyperclip.paste()
     try:
-        response = requests.get(url)
+        # This is chrome, you can set whatever browser you like
+        # Avoid 403 Forbidden
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36'}
+        response = requests.get(url, headers=headers)
         if response.status_code == 200:
             soup = BeautifulSoup(response.text, 'html.parser')
             return url, soup
@@ -23,7 +26,10 @@ def request_process():
     while True:
         url = input("URL target : ")
         try:
-            response = requests.get(url)
+            # This is chrome, you can set whatever browser you like
+            # Avoid 403 Forbidden
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36'}
+            response = requests.get(url, headers=headers)
             if response.status_code == 200:
                 soup = BeautifulSoup(response.text, 'html.parser')
                 return url, soup
@@ -35,7 +41,10 @@ def request_process():
 #
 def text_file_request(url):
     try:
-        response = requests.get(url)
+        # This is chrome, you can set whatever browser you like
+        # Avoid 403 Forbidden
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36'}
+        response = requests.get(url, headers=headers)
         if response.status_code == 200:
             soup = BeautifulSoup(response.text, 'html.parser')
             return soup
@@ -90,14 +99,14 @@ def create_directory(directory_path, folder_name):
         print(f"The directory {folder_name} already exists !")
         return False
 
-#
-def generate_img_urls(soup_object):
+# 
+def generate_img_urls(soup_object, tag, tag_class=None):
     # 
     url_list = []
     #
-    figures = soup_object.find_all('figure')
+    pack = soup_object.find_all(tag, tag_class)
     # 
-    for element in figures:
+    for element in pack:
         #
         target_url = [
             i.split('"')[1] for i in str(list(element.find_all('a'))[0]).split(" ") if "href" in i
@@ -112,9 +121,7 @@ def download_img(url, filename):
     if response.status_code == 200:
         with open(filename, "wb") as f:
             f.write(response.content)
-            # print("Image saved as", filename.split("/")[-1])
     else:
-        # print("Failed to download image")
         pass
 
 # Number of zeros

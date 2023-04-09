@@ -2,30 +2,54 @@ import time
 from progress.bar import IncrementalBar
 import pyperclip
 import os
+import requests
 import personnal_data
-from functions import create_directory, request_process, check_category
-from function_second import random_items_from_list
+from functions import create_directory, take_clipboard, request_process, check_category
+from function_second import random_items_from_list, pages_list
 import re
 from random import choice
 import shutil
 from PIL import Image
-
+import os
+import aspose.words as aw
+from bs4 import BeautifulSoup
+from check_functions import test_requests
 
 path_base = f"{personnal_data.path_downloads}/test"
 path_lecture = f"{personnal_data.path_data}/lecture"
 path = f"{personnal_data.path_data}"
 
 
-import aspose.words as aw
 
-doc = aw.Document()
-builder = aw.DocumentBuilder(doc)
+my_list = pages_list(personnal_data.url_test, '/')
+# url, soup = request_process()
 
-n = 1
-for i in os.listdir(path_base):
-    shape = builder.insert_image(f"{path_base}/{i}")
-    shape.image_data.save(f"{path}/{n}.jpg")
-    n += 1 
+# 
+def generate_img_urls(soup_object, tag, tag_class=None):
+    # 
+    url_list = []
+    #
+    pack = soup_object.find_all(tag, tag_class)
+    # 
+    for element in pack:
+        #
+        target_url = [
+            i.split('"')[1] for i in str(list(element.find_all('a'))[0]).split(" ") if "href" in i
+        ][0]
+        #
+        url_list.append(target_url)
+    return url_list
+
+# print(generate_img_urls(soup, 'h2'))
+
+# doc = aw.Document()
+# builder = aw.DocumentBuilder(doc)
+
+# n = 1
+# for i in os.listdir(path_base):
+#     shape = builder.insert_image(f"{path_base}/{i}")
+#     shape.image_data.save(f"{path}/Daddy-Crazy-Desire-4-{n}.jpg")
+#     n += 1 
 
 # Image.open("sample1.jpg").save("sample1.png")
 

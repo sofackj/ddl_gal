@@ -15,7 +15,7 @@ def ddl_app(url, type, chosen_directory):
         # Create directory
         if create_directory(pic_path, family_pic_name):
             # Find all furls for all targeted pics
-            list_urls = generate_img_urls(soup)
+            list_urls = generate_img_urls(soup, 'figure')
             print()
             # Full process
             ddl_process(list_urls,pic_path,family_pic_name)

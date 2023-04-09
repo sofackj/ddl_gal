@@ -6,13 +6,17 @@ import shutil
 
 path_base = f"{personnal_data.path_data}"
 path_lecture = f"{personnal_data.path_data}/lecture"
-path = f"{personnal_data.path_data_spe}"
+path = f"{personnal_data.path_data}/3d"
+
+create_directory(path_lecture, "lecture")
+
+# Empty lecture directory
+for image in os.listdir(path_lecture):
+    os.remove(f"{path_lecture}/{image}")
 
 folder_list = [item for item in os.listdir(path)]
 
 old_list, lecture_list = random_items_from_list(20, folder_list)
-
-create_directory(path_lecture, "lecture")
 
 for file in os.listdir(path_lecture):
     os.remove(f"{path_lecture}/{file}")
@@ -25,3 +29,7 @@ for inc, folder in enumerate(lecture_list):
         shutil.copyfile(img_path, f"{path_lecture}/{new_img_name}.jpg")
 
 print(len([image for image in os.listdir(path_lecture)]))
+
+if __name__ == "__main__":
+    # Start the process
+    print("To validate")
