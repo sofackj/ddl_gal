@@ -8,28 +8,44 @@ from function_second import random_items_from_list
 import re
 from random import choice
 import shutil
+from PIL import Image
 
-path_base = f"{personnal_data.path_data}"
+
+path_base = f"{personnal_data.path_downloads}/test"
 path_lecture = f"{personnal_data.path_data}/lecture"
-path = f"{personnal_data.path_data_spe}"
+path = f"{personnal_data.path_data}/3d/Daddy-Crazy-Desire-3"
 
-folder_list = [item for item in os.listdir(path)]
 
-old_list, lecture_list = random_items_from_list(0, folder_list)
+import aspose.words as aw
 
-create_directory(path_lecture, "lecture")
+doc = aw.Document()
+builder = aw.DocumentBuilder(doc)
 
-for file in os.listdir(path_lecture):
-    os.remove(f"{path_lecture}/{file}")
+n = 1
+for i in os.listdir(path_base):
+    shape = builder.insert_image(f"{path_base}/{i}")
+    shape.image_data.save(f"{path}/Daddy-Crazy-Desire-3-{n}.jpg")
+    n += 1 
 
-for inc, folder in enumerate(lecture_list):
-    folder_path = f"{path}/{folder}"
-    for inc_2, file in enumerate(os.listdir(folder_path)):
-        img_path = f"{folder_path}/{file}"
-        new_img_name = f"{inc}_{folder}_{inc_2}"
-        shutil.copyfile(img_path, f"{path_lecture}/{new_img_name}.jpg")
+# Image.open("sample1.jpg").save("sample1.png")
 
-print(lecture_list)
+# folder_list = [item for item in os.listdir(path)]
+
+# old_list, lecture_list = random_items_from_list(20, folder_list)
+
+# create_directory(path_lecture, "lecture")
+
+# for file in os.listdir(path_lecture):
+#     os.remove(f"{path_lecture}/{file}")
+
+# for inc, folder in enumerate(lecture_list):
+#     folder_path = f"{path}/{folder}"
+#     for inc_2, file in enumerate(os.listdir(folder_path)):
+#         img_path = f"{folder_path}/{file}"
+#         new_img_name = f"{inc}_{folder}_{inc_2}"
+#         shutil.copyfile(img_path, f"{path_lecture}/{new_img_name}.jpg")
+
+# print(len([image for image in os.listdir(path_lecture)]))
 
 # url, soup =  request_process()
 
