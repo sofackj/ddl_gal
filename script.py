@@ -4,8 +4,9 @@ import pyperclip
 import os
 import requests
 import personnal_data
-from functions import create_directory, take_clipboard, request_process, check_category
+from functions import generate_img_urls, text_file_request, create_directory, take_clipboard, request_process, check_category
 from function_second import random_items_from_list, pages_list
+from largefunctions import ddl_app
 import re
 from random import choice
 import shutil
@@ -19,26 +20,30 @@ path_base = f"{personnal_data.path_downloads}/test"
 path_lecture = f"{personnal_data.path_data}/lecture"
 path = f"{personnal_data.path_data}"
 
+my_list = pages_list(personnal_data.url_dbz, '/')
 
+for i in my_list:
+    galeries_list = generate_img_urls(text_file_request(i), 'h2')
+    for galery in galeries_list:
+        ddl_app(galery, "dbz", personnal_data.stories_path)
 
-my_list = pages_list(personnal_data.url_test, '/')
 # url, soup = request_process()
 
 # 
-def generate_img_urls(soup_object, tag, tag_class=None):
-    # 
-    url_list = []
-    #
-    pack = soup_object.find_all(tag, tag_class)
-    # 
-    for element in pack:
-        #
-        target_url = [
-            i.split('"')[1] for i in str(list(element.find_all('a'))[0]).split(" ") if "href" in i
-        ][0]
-        #
-        url_list.append(target_url)
-    return url_list
+# def generate_img_urls(soup_object, tag, tag_class=None):
+#     # 
+#     url_list = []
+#     #
+#     pack = soup_object.find_all(tag, tag_class)
+#     # 
+#     for element in pack:
+#         #
+#         target_url = [
+#             i.split('"')[1] for i in str(list(element.find_all('a'))[0]).split(" ") if "href" in i
+#         ][0]
+#         #
+#         url_list.append(target_url)
+#     return url_list
 
 # print(generate_img_urls(soup, 'h2'))
 
