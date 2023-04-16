@@ -4,9 +4,9 @@ from functions import create_directory
 from function_second import random_items_from_list
 import shutil
 
-path_base = f"{personnal_data.path_data}"
-path_lecture = f"{personnal_data.path_data}/lecture"
-path_to_scrap = f"{personnal_data.stories_path}/tufos"
+path_base = personnal_data.path_nxts
+path_lecture = personnal_data.lecture_path
+path_to_scrap = personnal_data.tfs_path
 
 create_directory(path_lecture, "lecture")
 
