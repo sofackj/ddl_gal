@@ -8,14 +8,16 @@ def ddl_app(url, section_directory, root_path):
     # Check the value of soup is legit
     if soup:
         # gallery_section_directory
-        final_path = f"{root_path}/{section_directory}/"
-        print((final_path))
+        final_path = f"{root_path}/{section_directory}"
+        print(final_path)
+        create_directory(final_path, section_directory)
         # Collect data
         family_pic_name, pic_path = data_setup(url, final_path)
         # Create directory
         if create_directory(pic_path, family_pic_name):
             # Find all furls for all targeted pics
             list_urls = generate_img_urls(soup, 'figure')
+            print(f"Downloading images into {pic_path}")
             print()
             # Full process
             ddl_process(list_urls,pic_path,family_pic_name)

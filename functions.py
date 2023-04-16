@@ -88,7 +88,7 @@ def check_category(soup, default_value, chosen_value):
 def data_setup(url, path):
     new_directory = url.split("/")[-2]
     family_pic_name = "_".join(new_directory.split("-"))
-    pic_path = path + new_directory
+    pic_path = path + "/" + new_directory
     return family_pic_name, pic_path
 
 # Create a directory

@@ -5,14 +5,13 @@ from largefunctions import ddl_app
 
 url_to_scrap = personnal_data.url_galeries_tfs
 path_base = personnal_data.stories_path
-directory_name= personnal_data.url_galeries_tfs.split("/")[-1]
 directory_path = personnal_data.tfs_path
 
 def download_multi_galery(page_url_before_number,
                           page_url_after_number,
                           galeries_directory_name,
                           root_directory):
-    create_directory(root_directory, directory_name)
+    create_directory(root_directory + "/" + galeries_directory_name, galeries_directory_name)
     # List of galeries pages urls
     galeries_pages = pages_list(page_url_before_number, page_url_after_number)
     # For each url pages
@@ -26,4 +25,7 @@ def download_multi_galery(page_url_before_number,
 
 if __name__ == "__main__":
     # Start the process
-    download_multi_galery(url_to_scrap, '/', directory_name, directory_path)
+    download_multi_galery(personnal_data.start_url,
+                          personnal_data.end_url,
+                          personnal_data.new_folder,
+                          path_base)

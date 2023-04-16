@@ -5,7 +5,7 @@ from largefunctions import ddl_app
 # path_data value if no personnal_data module
 path_data = None
 # Path where to download pics
-path = f"{personnal_data.path_data}"
+path = f"{personnal_data.path_nxts}"
 #
 def single_ddl(chosen_path):
     # Take the url and check the page status

@@ -18,12 +18,18 @@ from check_functions import test_requests
 
 target_path= personnal_data.tfs_path
 
-for i in os.listdir(target_path):
-    if "sacana" in i:
-        print(i)
-    else:
-        continue
+# for i in os.listdir(target_path):
+#     if "sacana" in i:
+#         print(i)
+#     else:
+#         continue
 
+# print(len([i for i in os.listdir(personnal_data.path_data_2d) if "simpson" in i]))
+
+if os.listdir(personnal_data.path_data_2d):
+    print("OK")
+else:
+    print("KO")
 # url, soup = request_process()
 
 # 
