@@ -4,7 +4,7 @@ import pyperclip
 import os
 import requests
 import personnal_data
-from functions import generate_img_urls, text_file_request, create_directory, take_clipboard, request_process, check_category
+from functions import generate_img_urls, create_directory, take_clipboard, request_process, check_category
 from function_second import random_items_from_list, pages_list
 from largefunctions import ddl_app
 import re
@@ -16,16 +16,13 @@ import aspose.words as aw
 from bs4 import BeautifulSoup
 from check_functions import test_requests
 
-path_base = f"{personnal_data.path_downloads}/test"
-path_lecture = f"{personnal_data.path_data}/lecture"
-path = f"{personnal_data.path_data}"
+target_path= personnal_data.tfs_path
 
-my_list = pages_list(personnal_data.url_dbz, '/')
-
-for i in my_list:
-    galeries_list = generate_img_urls(text_file_request(i), 'h2')
-    for galery in galeries_list:
-        ddl_app(galery, "dbz", personnal_data.stories_path)
+for i in os.listdir(target_path):
+    if "sacana" in i:
+        print(i)
+    else:
+        continue
 
 # url, soup = request_process()
 
