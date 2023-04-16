@@ -1,14 +1,14 @@
 import os
-from functions import data_setup, create_directory, text_file_request,generate_img_urls, ddl_process
+from functions import data_setup, create_directory, check_url_request,generate_img_urls, ddl_process
 
-def ddl_app(url, type, chosen_directory): 
+def ddl_app(url, section_directory, root_path): 
     print()
     # Take the url and check the page status
-    soup = text_file_request(url)
+    soup = check_url_request(url)
     # Check the value of soup is legit
     if soup:
-        # gallery_type
-        final_path = f"{chosen_directory}/{type}/"
+        # gallery_section_directory
+        final_path = f"{root_path}/{section_directory}/"
         print((final_path))
         # Collect data
         family_pic_name, pic_path = data_setup(url, final_path)

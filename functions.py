@@ -38,8 +38,8 @@ def request_process():
         except:
             continue
 
-#
-def text_file_request(url):
+# Check if the url is correct, if yes return the soup into a variable if asked
+def check_url_request(url):
     try:
         # This is chrome, you can set whatever browser you like
         # Avoid 403 Forbidden
@@ -49,8 +49,10 @@ def text_file_request(url):
             soup = BeautifulSoup(response.text, 'html.parser')
             return soup
         else:
+            print(f"Error during the GET response : {response.status_code} ")
             return False
     except:
+        print(f"Couldn't perform the request correctly for the fllowing url: \n{url}")
         return False
 
 # Get the URL
@@ -101,19 +103,22 @@ def create_directory(directory_path, folder_name):
 
 # 
 def generate_img_urls(soup_object, tag, tag_class=None):
-    # 
-    url_list = []
-    #
-    pack = soup_object.find_all(tag, tag_class)
-    # 
-    for element in pack:
+    if soup_object:
+        # 
+        url_list = []
         #
-        target_url = [
-            i.split('"')[1] for i in str(list(element.find_all('a'))[0]).split(" ") if "href" in i
-        ][0]
-        #
-        url_list.append(target_url)
-    return url_list
+        pack = soup_object.find_all(tag, tag_class)
+        # 
+        for element in pack:
+            #
+            target_url = [
+                i.split('"')[1] for i in str(list(element.find_all('a'))[0]).split(" ") if "href" in i
+            ][0]
+            #
+            url_list.append(target_url)
+        return url_list
+    else:
+        print("Error -> URL not conform or resuest status different from 200.\nCheck error described above.")
 
 # Download pic one at a time
 def download_img(url, filename):
