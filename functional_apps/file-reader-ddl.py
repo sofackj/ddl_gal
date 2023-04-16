@@ -24,3 +24,4 @@ def check_txt_file(chosen_path):
 if __name__ == "__main__":
     # Start the process
     check_txt_file(path)
+    

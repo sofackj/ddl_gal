@@ -18,3 +18,4 @@ def single_ddl(chosen_path):
 if __name__ == "__main__":
     # Start the process
     single_ddl(path)
+    
