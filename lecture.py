@@ -6,7 +6,7 @@ from function_second import random_items_from_list, purge_directory_content, cop
 path_base = personnal_data.path_nxts
 path_lecture = personnal_data.lecture_path
 lecture_name = personnal_data.lecture_path.split("/")[-1]
-path_to_scrap = personnal_data.tfs_path
+path_to_scrap = personnal_data.tfnxt_path
 
 # Function to provision the lecture directory
 def apply_lecture(images_destination_path, images_destination_name, images_targeted, galeries_number=20):
@@ -25,4 +25,4 @@ def apply_lecture(images_destination_path, images_destination_name, images_targe
 
 if __name__ == "__main__":
     # Start the process
-    apply_lecture(path_lecture, lecture_name, path_to_scrap, 1)
+    apply_lecture(path_lecture, lecture_name, path_to_scrap, 20)

@@ -1,6 +1,7 @@
 import os
 import shutil
 from check_functions import test_requests
+from functions import normalized_number
 from random import choice
 
 # Purge all the files of a directory
@@ -26,12 +27,14 @@ def random_items_from_list(nb, target_list):
 
 #
 def copy_files_from_directories_list(directories_list, root_directory_path,images_destination_path):
+    n = 0
     for inc, folder in enumerate(directories_list):
         folder_path = f"{root_directory_path}/{folder}"
         for inc_2, file in enumerate(os.listdir(folder_path)):
             img_path = f"{folder_path}/{file}"
-            new_img_name = f"{inc}_{folder}_{inc_2}"
+            new_img_name = f"{normalized_number(n,3)}_{folder}_{inc_2}"
             shutil.copyfile(img_path, f"{images_destination_path}/{new_img_name}.jpg")
+            n += 1
 
 #
 def pages_list(url, back_url=''):
