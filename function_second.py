@@ -29,15 +29,14 @@ def random_items_from_list(nb, target_list):
 def random_items_complex_list(nb, target_list):
     new_list = []
     shuffle(target_list)
-    for random_item in target_list:
+    while len(new_list) != nb:
     # Pattern of 000 if unique 000_0 if series
-        if random_item.split('_')[0] not in [k.split('_')[0] for k in new_list]:
+        item_to_check = target_list[0]
+        if item_to_check.split('_')[0] not in [k.split('_')[0] for k in new_list]:
             # Add the random item to the list
-            new_list.append(random_item)
+            new_list.append(item_to_check)
             # Remove the item from the first list
-            target_list.remove(random_item)
-            if len(new_list) == nb:
-                break
+            target_list.remove(item_to_check)
         else:
             target_list.append(target_list.pop(0))
     # Return the first list modified with the new list

@@ -5,7 +5,7 @@ from largefunctions import ddl_app
 # path_data value if no personnal_data module
 path_data = None
 # Path where to download pics
-path = f"{personnal_data.path_data}"
+path = f"{personnal_data.path_data_3d}"
 #
 def check_txt_file(chosen_path):
     # Set to 0 for entering the loop
