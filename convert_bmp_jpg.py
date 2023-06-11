@@ -14,7 +14,7 @@ builder = aw.DocumentBuilder(doc)
 n = 1
 for i in os.listdir(path_base):
     shape = builder.insert_image(f"{path_base}/{i}")
-    shape.image_data.save(f"{path}/{n}.jpg")
+    shape.image_data.save(f"{path}/newpic_{n}.jpg")
     n += 1 
 
 if __name__ == "__main__":
