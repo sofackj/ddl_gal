@@ -1,6 +1,6 @@
 import os
 import shutil
-from random import random
+from random import random,shuffle
 from functions import normalized_number, \
     data_setup, create_directory, check_url_request, \
         generate_img_urls, ddl_process
@@ -108,3 +108,43 @@ def complex_lecture(images_destination_path, images_targeted, pics_number=20, fi
         # Check the condition for the loop
         series_nb = len(set([folder.split('_')[0] for folder in folder_list]))
  
+def clips_list_random_complex(clips_directory):
+    _clips_list = [i for i in os.listdir(clips_directory)]
+    shuffle(_clips_list)
+    _copy_clip = _clips_list.copy()
+    _my_clips = []
+    _set_number = list(set(('').join(i.split('_')[:-1]) for i in _copy_clip))
+    # Fill the clips list for the first condition in the loop
+    #
+    _first_clip = _copy_clip.pop(0)
+    # Add the clip in the list
+    _my_clips.append(_first_clip)
+    # Remove the serie from the series list
+    _set_number.remove(('').join(_first_clip.split('_')[:-1]))
+    # Start of the loop
+    while len(_copy_clip) > 0:
+        # Remove the first clip of the list
+        _chosen_clip = _copy_clip.pop(0)
+        # Check the serie of the clip
+        _chosen_serie = ('').join(_chosen_clip.split('_')[:-1])
+        # if the serie's name is in the series list
+        if _chosen_serie in _set_number and ('').join(_my_clips[-1].split('_')[:-1]) != _chosen_serie:
+            # Add the clip in the list
+            _my_clips.append(_chosen_clip)
+            # Remove the serie from the series list
+            _set_number.remove(_chosen_serie)
+        else:
+            # If the series list is empty
+            if len(_set_number) == 0:
+                # Fill it again with the clips left
+                _set_number = list(set(('').join(i.split('_')[:-1]) for i in _copy_clip))
+            elif len(_set_number) == 1 and _chosen_serie == _set_number[-1]:
+                 # Add the clip in the list
+                _my_clips.append(_chosen_clip)
+                # Remove the serie from the series list
+                _set_number.remove(_chosen_serie)
+            else:
+                # If the serie not in the series list add the clip at the end of the clips list
+                _copy_clip.append(_chosen_clip)
+        # print(len(_my_clips), len(_clips_list))
+    return _my_clips
