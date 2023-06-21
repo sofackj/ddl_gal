@@ -15,7 +15,8 @@ def time_limit_vids(clips_directory, nb_seq, broadness, destination_directory, l
     _n = 1
     #
     while _n < nb_seq and len(_test_list) > 0:
-        print(_n)
+        print()
+        print(f'=== Generating video file <{_n}> =======================================')
         # Create the sequence
         _test_list = final_clip(_test_list, broadness, destination_directory, f"{video_name}_{_n}", length_limit, limit_length=True)
         #
