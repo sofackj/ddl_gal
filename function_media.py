@@ -15,7 +15,7 @@ def final_clip(clip_files_list, clips_widh, final_clip_destination, final_clip_n
         _clip_list.append(video)
         #
         total_length += video.duration
-        if total_length > length_limit:
+        if limit_length and total_length > length_limit:
             break
     # Concatenate clips together
     try:
