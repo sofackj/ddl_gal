@@ -80,8 +80,10 @@ def complex_lecture(images_destination_path, images_targeted, pics_number=20, fi
         shutil.rmtree(f"{images_destination_path}/{k}")
     # List all folders containing images
     folder_list = [item for item in os.listdir(images_targeted)]
+    print(folder_list)
     # Determine the series number
-    series_nb = len(set([("_").join(folder.split('_')[:-1]) if "_" in folder else folder for folder in folder_list]))
+    # series_nb = len(set([("_").join(folder.split('_')[:-1]) if "_" in folder else folder for folder in folder_list]))
+    series_nb = len(folder_list)
     # Increment for the temp directory (pattern -> temp_n)
     n = 1
     ### Start of the loop ######################################################

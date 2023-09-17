@@ -29,15 +29,26 @@ def random_items_from_list(nb, target_list):
 def random_items_complex_list(nb, target_list):
     new_list = []
     shuffle(target_list)
+    last_serie = ""
     while len(new_list) != nb and len(target_list) > 0:
-    # Pattern of 000 if unique 000_0 if series
+        # List of series in the source list
+        series_of_target_list = [("_").join(folder.split('_')[:-1]) if "_" in folder else folder for folder in target_list]
+        # List of series in the new list
+        series_of_new_list = [("_").join(folder.split('_')[:-1]) if "_" in folder else folder for folder in new_list]
+        # Pattern of 000 if unique 000_0 if series
         item_to_check = target_list[0]
+        # 2nd condition bypass the 1st if all series already present in the new list
+        # 3rd condition bypass the 2nd and is used when only one serie is left
         if ("_" in item_to_check and ("_").join(item_to_check.split('_')[:-1]) not in [("_").join(k.split('_')[:-1]) for k in new_list]) \
+            or ("_" in item_to_check and sum([0 if j in series_of_new_list else 1 for j in series_of_target_list]) == 0 and last_serie != ("_").join(item_to_check.split('_')[:-1])) \
+            or ("_" in item_to_check and len(list(set(series_of_target_list))) == 1) \
             or ("_" not in item_to_check and item_to_check not in new_list):
             # Add the random item to the list
             new_list.append(item_to_check)
             # Remove the item from the first list
             target_list.remove(item_to_check)
+            # print(item_to_check)
+            last_serie = ("_").join(item_to_check.split('_')[:-1]) if "_" in item_to_check else last_serie
         else:
             target_list.append(target_list.pop(0))
     # Return the first list modified with the new list
