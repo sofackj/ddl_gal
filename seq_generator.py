@@ -24,7 +24,7 @@ def seq_generator(folder_pattern, folders_path, b_size, gif_destination, pdf=Tru
     else:
         file_type = "gif"
     # List of temp directories
-    temp_folders_list = [i for i in os.listdir(folders_path) if folder_pattern in i]
+    temp_folders_list = [i for i in os.listdir(folders_path) if "temp" in i]
     print()
     print(f'=== {file_type.upper()} Generator Process ====================================')
     # Loop on each folder to generate gifs
@@ -51,8 +51,8 @@ def seq_generator(folder_pattern, folders_path, b_size, gif_destination, pdf=Tru
             _foo = _foo.convert('RGB')
             _images.append(_foo)
         # Path of the gif file
-        _file_path = f"{gif_destination}/{_temp_folder}.{file_type}"
-        print(f"Generating the {_temp_folder}.{file_type}...")
+        _file_path = f"{gif_destination}/{folder_pattern}_{_temp_folder}.{file_type}"
+        print(f"Generating the {folder_pattern}_{_temp_folder}.{file_type}...")
         if pdf:
             # Create the pdf
             _images[0].save(_file_path, f"{file_type.upper()}" ,resolution=200.0, \
@@ -61,7 +61,7 @@ def seq_generator(folder_pattern, folders_path, b_size, gif_destination, pdf=Tru
             # Create the gif
             _images[0].save(_file_path, format=f"{file_type.upper()}", append_images=_images, \
                             save_all=True, duration=200, loop=0)
-        print(f"{_temp_folder}.{file_type} created...")
+        print(f"{folder_pattern}_{_temp_folder}.{file_type} created...")
         # Delete the temp directory
         shutil.rmtree(_temp_folder_path)
         print('---------------------------------------------')
