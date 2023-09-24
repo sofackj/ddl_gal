@@ -149,3 +149,15 @@ def ddl_process(list_urls, path, pic_serie):
         bar.next()
         time.sleep(stop-start)
         n += 1
+
+def lines_list_in_txt(chosen_path, file_id=""):
+    # List of lines
+    lines_list = []
+    # Set up the loop process
+    for file in os.listdir(chosen_path):
+        if ".txt" in file and file_id in file:
+            txt_file = open(f"{chosen_path}/{file}", "r")
+            for line in txt_file:
+                lines_list.append(line.strip())
+            txt_file.close()
+    return lines_list

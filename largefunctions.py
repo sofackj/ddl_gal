@@ -3,7 +3,7 @@ import shutil
 from random import random,shuffle
 from functions import normalized_number, \
     data_setup, create_directory, check_url_request, \
-        generate_img_urls, ddl_process
+        generate_img_urls, ddl_process, lines_list_in_txt
 from function_second import purge_directory_content, \
     copy_files_from_directories_list, random_items_complex_list
 
@@ -72,15 +72,20 @@ def sort_files_series(directory_to_sort, ext, prefix):
             #
             os.rename(f"{directory_to_sort}/{vid}", f"{directory_to_sort}/{prefix}_{_serial}_{vid.split('_')[-1]}")
 
-def complex_lecture(images_destination_path, images_targeted, pics_number=20, files_number=9):
+def complex_lecture(images_destination_path, images_targeted, pics_number=20, files_number=9, txt_file=False):
     # Generate a list of directories in the general directory
     temp_folders_list = [i for i in os.listdir(images_destination_path) if 'temp' in i]
     # Delete all temp file with the following pattern 'temp'
     for k in temp_folders_list:
         shutil.rmtree(f"{images_destination_path}/{k}")
     # List all folders containing images
-    folder_list = [item for item in os.listdir(images_targeted)]
-    print(folder_list)
+    # if the list is in a txt file
+    if txt_file:
+        folder_list = lines_list_in_txt(images_targeted)
+    # if the list is in the repertory
+    else:
+        folder_list = [item for item in os.listdir(images_targeted) if "." not in item]
+    # print(folder_list)
     # Determine the series number
     # series_nb = len(set([("_").join(folder.split('_')[:-1]) if "_" in folder else folder for folder in folder_list]))
     series_nb = len(folder_list)
